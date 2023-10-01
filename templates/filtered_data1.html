@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Data</title>
+</head>
+<body>
+    <h1>Filter Data</h1>
+    <style>
+        
+        form {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        select, input[type="text"] {
+            padding: 5px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none; 
+            margin-left: 10px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+       
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        
+        .no-data-message {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .upload-button {
+            display: inline-block;
+            font-size: 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-decoration: none; 
+            border-radius: 5px;
+            margin-left: 10px;
+            transition: background-color 0.3s ease; 
+        }
+
+        .upload-button:hover {
+            background-color: #0056b3; 
+        }
+        
+    </style>
+    
+    <form method="POST" action="/apply_filters">
+        <label for="column">Select Column to Filter:</label>
+        <select name="column" id="column">
+            {% for col in col_names %}
+                <option value="{{ col }}">{{ col }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="condition">Filter Condition:</label>
+        <select name="condition" id="condition">
+            <option value="equals">Equals</option>
+            <option value="contains">Contains</option>
+        </select>
+
+        <label for="value">Filter Value:</label>
+        <input type="text" name="value" id="value" required>
+
+        <button type="submit">Apply Filter</button>
+        
+    </form>
+    <form class="upload-form" method="POST" enctype="multipart/form-data" action="/finalUpload" style="text-align: center;">
+        <button class="upload-button" type="submit" style="margin-top: 0px;">Upload</button>
+    </form>
+
+    <!-- Display filtered data -->
+    <h2>Filtered Data Table</h2>
+    {% if filtered_data %}
+        <table>
+            <thead>
+                <tr>
+                    {% for column in col_names %}
+                        <th>{{ column }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in filtered_data %}
+                    <tr>
+                        {% for column in col_names %}
+                            <td>{{ row.get(column, '') }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No data available after filtering.</p>
+    {% endif %}
+
+</body>
+</html>

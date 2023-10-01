@@ -1,16 +1,75 @@
 <!DOCTYPE html>
-<html> 
-<head> 
-    <title>Uploading & Reading CSV file</title> 
-</head> 
-<body> 
-    <form method = "POST" enctype="multipart/form-data" action = "/">   
-        <input type="file" name="file" accept=".csv">
-        <input type = "submit" value="Upload"> 
-    </form>
-    <p style="color:green;"> File uploaded successfully!! </p>
-  <form action="/show_data" target="_blank">
-        <input type="submit" value="Show CSV"/>
-    </form>
-</body> 
+<html>
+<head>
+    <title>Uploading & Reading CSV file</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .upload-form {
+            text-align: center;
+        }
+
+        .upload-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin : 10px
+        }
+
+        .upload-button:hover {
+            background-color: #0056b3;
+        }
+
+        .success-message {
+            margin-top: 20px;
+            color: #009900;
+        }
+
+        .info-text {
+            color: #009900;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CSV File Upload</h1>
+        <p class="info-text">File uploaded successfully!!</p>
+        <form action="/show_data" target="_blank">
+            <button class="upload-button" type="submit">Show CSV</button>
+        </form>
+        <form action="/apply_column_selection" method="POST">
+            <button class="upload-button" type="submit">Apply Filters</button>
+        </form>
+    </div>
+    <script>
+        // JavaScript code to display success message after upload
+        document.querySelector('.upload-form').addEventListener('submit', function () {
+            document.querySelector('.success-message').style.display = 'block';
+        });
+    </script>
+</body>
 </html>

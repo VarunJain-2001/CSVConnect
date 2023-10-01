@@ -37,26 +37,37 @@
             padding: 10px 20px;
             cursor: pointer;
             font-size: 16px;
+            margin : 10px
         }
 
         .upload-button:hover {
             background-color: #0056b3;
         }
 
-        .info-text {
+        .success-message {
             margin-top: 20px;
-            color: #007bff;
+            color: #009900;
+        }
+
+        .info-text {
+            color: #009900;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>CSV File Upload</h1>
-        <form class="upload-form" method="POST" enctype="multipart/form-data" action="/">
-            <input type="file" name="file" accept=".csv">
-            <button class="upload-button" type="submit">Upload</button>
+        <h1>CSV File Uploaded</h1>
+        <p class="info-text">File uploaded successfully!!</p>
+        <form action="/show_data" target="_blank">
+            <button class="upload-button" type="submit">Show CSV</button>
+
         </form>
-        <p class="info-text">Choose a CSV file to upload.</p>
     </div>
+    <script>
+        // JavaScript code to display success message after upload
+        document.querySelector('.upload-form').addEventListener('submit', function () {
+            document.querySelector('.success-message').style.display = 'block';
+        });
+    </script>
 </body>
 </html>
